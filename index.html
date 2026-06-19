@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HOI-Edit | Taming I2V models for Image HOI Editing</title>
+    <meta
+      name="description"
+      content="HOI-Edit is a cognitive benchmark and agentic self-correcting framework for image Human-Object Interaction editing."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="HOI-Edit home">
+        <span class="brand-mark">H</span>
+        <span>HOI-Edit</span>
+      </a>
+      <nav aria-label="Page navigation">
+        <a href="#benchmark">Benchmark</a>
+        <a href="#method">SCPE</a>
+        <a href="#results">Results</a>
+        <a href="#bibtex">BibTeX</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section">
+        <p class="eyebrow">ICML 2026 submission · Human-Object Interaction Editing</p>
+        <h1>
+          Taming I2V models for Image HOI Editing:<br />
+          A Cognitive Benchmark and Agentic Self-Correcting Framework
+        </h1>
+
+        <div class="authors" aria-label="Authors">
+          <span>Jiayi Gao</span>
+          <span>Qingchao Chen</span>
+          <span>Yuxin Peng</span>
+          <span>Yang Liu</span>
+        </div>
+        <p class="affiliation">
+          Wangxuan Institute of Computer Technology, Peking University · National Institute of
+          Health Data Science, Peking University
+        </p>
+
+        <div class="actions">
+          <a class="button primary" href="https://github.com/oceanflowlab/HOI-Edit">Code</a>
+          <a class="button" href="https://youtu.be/Wr355j98Cdo">Video</a>
+          <a class="button" href="#abstract">Paper</a>
+          <a class="button" href="#benchmark">Dataset</a>
+          <a class="button" href="#bibtex">BibTeX</a>
+        </div>
+
+      </section>
+
+      <section id="abstract" class="section">
+        <div class="split">
+          <div>
+            <p class="section-kicker">Abstract</p>
+            <h2>From static attributes to complex Human-Object Interactions.</h2>
+          </div>
+          <div class="copy">
+            <p>
+              Current image editing methods excels at static attributes but fails at complex
+              Human-Object Interactions (HOI), a critical challenge unaddressed by existing benchmarks
+              that conflate HOI with static attributes, relying on global metrics incapable of
+              simultaneously assessing dynamic interaction validity and entangled human-object pair
+              preservation. Thus, we first introduce HOI-Edit, a comprehensive benchmark with three
+              progressive cognitive levels, which features an automated metric HOI-Eval that first
+              reliably evaluates instance-level interaction by letting VLM Q&amp;A after thinking with
+              images containing grounded Human-Object pair. Considering the task's essence of
+              remodeling dynamic relationships, we benchmark Image-to-Video (I2V) models, finding
+              them inherently suited for dynamic editing due to their temporal generation
+              capabilities. Crucially, beyond superior performance, this capability provides a
+              "replay of the failure process", offering unique diagnosability into why errors occur.
+              We thus propose SCPE (Self-Correcting Process Editing), a novel, agentic
+              self-correcting framework that constrains the generation of I2V models through
+              iteratively refined prompts, enabling the generated videos to more accurately present
+              the target HOI. Extracted frames from these videos are the final editing results. On
+              HOI-Edit, SCPE achieves performance competitive with state-of-the-art (SOTA) editing
+              models like Nano Banana on interaction.
+            </p>
+          </div>
+        </div>
+
+        <figure class="teaser reveal">
+          <img src="assets/fig1_v4.pdf.png" alt="Overview of HOI-Edit, HOI-Eval, and SCPE" />
+          <figcaption>
+            HOI-Edit evaluates dynamic interaction editing across cognitive levels, HOI-Eval
+            grounds pair-wise verification, and SCPE turns I2V failure traces into self-correction.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="benchmark" class="section">
+        <div class="section-heading">
+          <p class="section-kicker">HOI-Edit Benchmark</p>
+          <h2>Three cognitive levels for interaction editing.</h2>
+        </div>
+
+        <div class="level-grid">
+          <article class="level-card">
+            <span class="level-index">L1</span>
+            <h3>Foundational Edits</h3>
+            <p>
+              Create, remove, or modify the interaction between a specific human-object pair while
+              preserving both entity identities.
+            </p>
+          </article>
+          <article class="level-card">
+            <span class="level-index">L2</span>
+            <h3>Context Spatial Understanding</h3>
+            <p>
+              Resolve spatial references, select the intended target among distractors, and place
+              entities into instruction-consistent terminal states.
+            </p>
+          </article>
+          <article class="level-card">
+            <span class="level-index">L3</span>
+            <h3>Causal and Physical Reasoning</h3>
+            <p>
+              Infer prerequisite steps, tool use, illumination changes, and non-rigid physical
+              effects that are implied but not explicitly described.
+            </p>
+          </article>
+        </div>
+
+        <figure class="wide-figure reveal">
+          <img src="assets/fig2_v8.pdf.png" alt="HOI-Edit benchmark cognitive levels" />
+          <figcaption>HOI-Edit organizes image HOI editing into progressive cognitive levels.</figcaption>
+        </figure>
+
+        <div class="data-figures">
+          <figure class="visual-panel reveal">
+            <img src="assets/fig4_v4.pdf.png" alt="HOI-Edit data distribution" />
+            <figcaption>Figure 4. HOI-Edit data distribution.</figcaption>
+          </figure>
+          <figure class="visual-panel reveal">
+            <img src="assets/wordcloud.png" alt="Word cloud of interaction verbs" />
+            <figcaption>Diverse interaction verbs across curated samples.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section eval-band">
+        <div class="section-heading">
+          <p class="section-kicker">Data Curation and HOI-Eval Metric</p>
+          <h2>Curating grounded HOI edits and evaluating the right pair.</h2>
+          <p>
+            We curate context-aware HOI editing instructions, annotate the interacting human,
+            object, and auxiliary regions, and construct grounding-based questions for identity,
+            interaction, spatial, and causal verification. HOI-Eval then tracks these grounded
+            regions into edited outputs so the evaluator judges the intended pair rather than the
+            global image.
+          </p>
+        </div>
+        <figure class="wide-figure reveal">
+          <img src="assets/F3.pdf.png" alt="Benchmark construction and HOI-Eval pipeline" />
+          <figcaption>Benchmark construction and HOI-Eval pipeline.</figcaption>
+        </figure>
+        <div class="eval-grid">
+          <article>
+            <h3>1. Region Association</h3>
+            <p>
+              Human, object, and auxiliary boxes are propagated from the source image to the edited
+              result to isolate the intended interaction pair.
+            </p>
+          </article>
+          <article>
+            <h3>2. Identity Verification</h3>
+            <p>
+              Cropped and tagged regions let the evaluator score human and object consistency
+              without being distracted by global scene similarity.
+            </p>
+          </article>
+          <article>
+            <h3>3. Interaction Reasoning</h3>
+            <p>
+              Context-aware questions penalize edits that look plausible globally but violate the
+              requested spatial, causal, or physical constraints.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="method" class="section">
+        <div class="section-heading">
+          <p class="section-kicker">SCPE</p>
+          <h2>Self-correction from the video generation process.</h2>
+          <p>
+            I2V models reveal how a failed edit unfolds. SCPE uses that temporal evidence to refine
+            the prompt, update a reusable playbook, and select the best frame as the final edit.
+          </p>
+        </div>
+
+        <figure class="wide-figure reveal">
+          <img src="assets/prompt_enhancer_v3.pdf.png" alt="SCPE pipeline" />
+          <figcaption>Generator, Analyzer, Reflector, and Curator agents form an iterative loop.</figcaption>
+        </figure>
+
+        <div class="method-grid">
+          <article>
+            <h3>Generator</h3>
+            <p>Combines the initial image instruction with playbook knowledge into an I2V prompt.</p>
+          </article>
+          <article>
+            <h3>Analyzer</h3>
+            <p>Inspects sampled video frames and writes sample-specific failure reports.</p>
+          </article>
+          <article>
+            <h3>Reflector</h3>
+            <p>Turns concrete failures into general insights such as proximity bias or missing steps.</p>
+          </article>
+          <article>
+            <h3>Curator</h3>
+            <p>Updates strategies, templates, and pitfalls inside the dynamic Playbook.</p>
+          </article>
+        </div>
+
+        <div class="subsection-heading">
+          <h3>Generated Playbook Samples</h3>
+          <p>The Playbook stores reusable prompting strategies learned from failures.</p>
+        </div>
+        <figure class="playbook reveal">
+          <img src="assets/playbook_vis_v2.pdf.png" alt="Generated Playbook Samples" />
+          <figcaption>Generated Playbook samples across L1, L2, and L3 interaction edits.</figcaption>
+        </figure>
+      </section>
+
+      <section id="results" class="section results">
+        <div class="section-heading">
+          <p class="section-kicker">Results</p>
+          <h2>SCPE lifts open-source I2V editing across interaction metrics.</h2>
+        </div>
+
+        <div class="scoreboard" aria-label="Quantitative highlights">
+          <article>
+            <span>L1 Interaction</span>
+            <strong>0.8423</strong>
+            <em>Best among compared methods</em>
+          </article>
+          <article>
+            <span>L2 I+Q&amp;A</span>
+            <strong>0.6952</strong>
+            <em>Spatial grounding under constraints</em>
+          </article>
+          <article>
+            <span>L3 Interaction</span>
+            <strong>0.8053</strong>
+            <em>Causal and physical reasoning</em>
+          </article>
+          <article>
+            <span>Human Correlation</span>
+            <strong>0.60</strong>
+            <em>Interaction agreement for HOI-Eval</em>
+          </article>
+        </div>
+
+        <div class="table-wrap reveal" tabindex="0">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Method</th>
+                <th rowspan="2">Source</th>
+                <th colspan="3">L1: Foundational</th>
+                <th colspan="4">L2: Understanding</th>
+                <th colspan="4">L3: Reasoning</th>
+              </tr>
+              <tr>
+                <th>I</th>
+                <th>H</th>
+                <th>O</th>
+                <th>I</th>
+                <th>I+Q&amp;A</th>
+                <th>H</th>
+                <th>O</th>
+                <th>I</th>
+                <th>I+Q&amp;A</th>
+                <th>H</th>
+                <th>O</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Flux.1 Kontext</td>
+                <td>Open</td>
+                <td>0.4961</td>
+                <td>0.8991</td>
+                <td>0.5347</td>
+                <td>0.5192</td>
+                <td>0.2780</td>
+                <td>0.8998</td>
+                <td>0.4631</td>
+                <td>0.2052</td>
+                <td>0.0423</td>
+                <td>0.9653</td>
+                <td>0.8777</td>
+              </tr>
+              <tr>
+                <td>ByteMorph</td>
+                <td>Open</td>
+                <td>0.4469</td>
+                <td>0.2000</td>
+                <td>0.2220</td>
+                <td>0.4279</td>
+                <td>0.2240</td>
+                <td>0.2227</td>
+                <td>0.1757</td>
+                <td>0.4156</td>
+                <td>0.1571</td>
+                <td>0.7480</td>
+                <td>0.6584</td>
+              </tr>
+              <tr>
+                <td>Step1X-Edit</td>
+                <td>Open</td>
+                <td>0.5396</td>
+                <td>0.7985</td>
+                <td>0.6533</td>
+                <td>0.5159</td>
+                <td>0.4058</td>
+                <td>0.7997</td>
+                <td>0.6472</td>
+                <td>0.5874</td>
+                <td>0.4194</td>
+                <td>0.8446</td>
+                <td>0.7640</td>
+              </tr>
+              <tr>
+                <td>ChronoEdit</td>
+                <td>Open</td>
+                <td>0.5823</td>
+                <td>0.7418</td>
+                <td>0.6023</td>
+                <td>0.5574</td>
+                <td>0.4608</td>
+                <td>0.7515</td>
+                <td>0.6160</td>
+                <td>0.5620</td>
+                <td>0.4345</td>
+                <td>0.8205</td>
+                <td>0.7359</td>
+              </tr>
+              <tr>
+                <td>Bagel</td>
+                <td>Open</td>
+                <td>0.6326</td>
+                <td>0.7940</td>
+                <td>0.4790</td>
+                <td>0.6065</td>
+                <td>0.4781</td>
+                <td>0.7804</td>
+                <td>0.5030</td>
+                <td>0.6013</td>
+                <td>0.4061</td>
+                <td>0.8516</td>
+                <td>0.5701</td>
+              </tr>
+              <tr>
+                <td>Qwen-Image-Edit PLUS</td>
+                <td>Closed</td>
+                <td>0.6128</td>
+                <td>0.9343</td>
+                <td>0.8775</td>
+                <td>0.5984</td>
+                <td>0.4928</td>
+                <td>0.9395</td>
+                <td>0.7924</td>
+                <td>0.5878</td>
+                <td>0.3870</td>
+                <td>0.9593</td>
+                <td>0.8602</td>
+              </tr>
+              <tr>
+                <td>Nano Banana</td>
+                <td>Closed</td>
+                <td>0.7271</td>
+                <td>0.9537</td>
+                <td>0.8609</td>
+                <td>0.7040</td>
+                <td>0.5960</td>
+                <td>0.9590</td>
+                <td>0.7706</td>
+                <td>0.7399</td>
+                <td>0.5782</td>
+                <td>0.9743</td>
+                <td>0.9185</td>
+              </tr>
+              <tr>
+                <td>Wan 2.2 I2V</td>
+                <td>Open</td>
+                <td>0.6908</td>
+                <td>0.9166</td>
+                <td>0.7823</td>
+                <td>0.6608</td>
+                <td>0.5526</td>
+                <td>0.9113</td>
+                <td>0.7272</td>
+                <td>0.6822</td>
+                <td>0.5343</td>
+                <td>0.9306</td>
+                <td>0.8511</td>
+              </tr>
+              <tr class="ours">
+                <td>Wan 2.2 I2V + SCPE</td>
+                <td>Open</td>
+                <td>0.8423</td>
+                <td>0.9260</td>
+                <td>0.8640</td>
+                <td>0.7909</td>
+                <td>0.6952</td>
+                <td>0.9269</td>
+                <td>0.8260</td>
+                <td>0.8053</td>
+                <td>0.6528</td>
+                <td>0.9518</td>
+                <td>0.9073</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure class="wide-figure reveal">
+          <img src="assets/vis_4.pdf.png" alt="Qualitative comparison on HOI-Edit" />
+          <figcaption>Qualitative comparison across L1, L2, and L3 HOI editing scenarios.</figcaption>
+        </figure>
+      </section>
+
+      <section id="bibtex" class="section bibtex">
+        <div class="section-heading">
+          <p class="section-kicker">Citation</p>
+          <h2>BibTeX</h2>
+        </div>
+        <pre><code>@inproceedings{gao2026hoiedit,
+  title     = {Taming I2V Models for Image HOI Editing: A Cognitive Benchmark and Agentic Self-Correcting Framework},
+  author    = {Gao, Jiayi and Chen, Qingchao and Peng, Yuxin and Liu, Yang},
+  booktitle = {International Conference on Machine Learning},
+  year      = {2026}
+}</code></pre>
+      </section>
+    </main>
+
+    <footer>
+      <p>HOI-Edit · Peking University · Project page generated from the submitted paper package.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
