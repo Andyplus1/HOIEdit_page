@@ -271,15 +271,25 @@ figcaption {
   margin-top: 18px;
 }
 
-.data-figures figure {
-  display: grid;
-  grid-template-rows: auto min-content;
+.data-figure {
+  margin: 0;
+  overflow: visible;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
 }
 
-.data-figures img {
+.data-figure img {
+  display: block;
   width: 100%;
   object-fit: contain;
   padding: 14px;
+}
+
+.data-figure figcaption {
+  display: block;
+  border-top: 1px solid var(--line);
+  background: #fff;
 }
 
 .eval-grid {
