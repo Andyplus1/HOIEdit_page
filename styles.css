@@ -267,12 +267,17 @@ figcaption {
   display: grid;
   grid-template-columns: minmax(0, 0.56fr) minmax(0, 0.44fr);
   gap: 14px;
-  align-items: stretch;
+  align-items: start;
   margin-top: 18px;
 }
 
+.data-figures figure {
+  display: grid;
+  grid-template-rows: auto min-content;
+}
+
 .data-figures img {
-  height: 100%;
+  width: 100%;
   object-fit: contain;
   padding: 14px;
 }
