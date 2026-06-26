@@ -103,10 +103,10 @@ img {
 }
 
 .topbar {
-  position: sticky;
+  position: absolute;
   top: 0;
   z-index: 20;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
@@ -157,8 +157,10 @@ nav a:hover {
   min-height: auto;
   display: grid;
   align-content: center;
+  justify-items: center;
   padding-top: 64px;
   padding-bottom: 34px;
+  text-align: center;
 }
 
 .eyebrow,
@@ -180,7 +182,7 @@ p {
 
 h1 {
   max-width: 1120px;
-  margin: 0;
+  margin: 0 auto;
   font-size: clamp(36px, 4.6vw, 58px);
   line-height: 1.08;
   letter-spacing: 0;
@@ -202,30 +204,37 @@ h3 {
 .authors {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
-  margin-top: 18px;
+  margin-top: 22px;
+  color: #2563eb;
+  font-size: 18px;
 }
 
+.authors a,
 .authors span {
-  padding: 8px 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  color: #1f2937;
-  font-weight: 700;
+  color: inherit;
+  font-weight: 600;
+}
+
+.authors a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .affiliation {
   max-width: 780px;
-  margin: 14px 0 0;
+  margin: 12px auto 0;
   color: var(--muted);
+  text-align: center;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
-  margin: 20px 0 24px;
+  margin: 24px 0 10px;
 }
 
 .button {
@@ -599,10 +608,6 @@ footer {
 
   .topbar {
     padding: 13px 12px;
-  }
-
-  .authors span {
-    width: 100%;
   }
 
   .actions {
