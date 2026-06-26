@@ -106,12 +106,21 @@ h3 {
   font-weight: 500;
 }
 
+.authors sup,
+.affiliation sup {
+  font-size: 0.7em;
+}
+
 .affiliation {
   max-width: 850px;
   margin: 12px auto 0;
   color: #444;
   font-size: 16px;
   text-align: center;
+}
+
+.affiliation p {
+  margin: 2px 0;
 }
 
 .actions {
@@ -185,6 +194,25 @@ h3 {
   color: var(--muted);
   font-size: 17px;
   text-align: left;
+}
+
+.video-frame {
+  position: relative;
+  width: min(860px, 100%);
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #f7f7f7;
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .teaser,
